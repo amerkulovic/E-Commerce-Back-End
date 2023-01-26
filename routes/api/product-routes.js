@@ -19,7 +19,6 @@ router.get("/:id", async (req, res) => {
     where: { id: req.params.id },
     include: [Category, Tag],
   });
-
   return res.status(200).json(data);
   // be sure to include its associated Category and Tag data
 });

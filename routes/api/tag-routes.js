@@ -15,22 +15,29 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   // find a single tag by its `id`
   const data = await Tag.findOne({
+    where: { id: req.params.id },
     include: [Product],
   });
   return res.json(data);
   // be sure to include its associated Product data
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   // create a new tag
+  const data = await Tag.create(req.body);
+
+  return res.status(200).json(data);
 });
 
 router.put("/:id", (req, res) => {
   // update a tag's name by its `id` value
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
   // delete on tag by its `id` value
+  const data = await Tag.destroy({ where: { id: req.params.id } });
+
+  return res.status(200).json(data);
 });
 
 module.exports = router;
